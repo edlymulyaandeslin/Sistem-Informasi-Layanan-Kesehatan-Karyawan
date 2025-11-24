@@ -1,5 +1,12 @@
 <?php
+session_start();
 include '../../koneksi.php';
+
+// Cek apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+ header("Location: ../../auth/page/login.php");
+ exit();
+}
 
 $query_jlh_karyawan = "SELECT COUNT(*) AS total_karyawan FROM users WHERE role='karyawan'";
 $result = mysqli_query($conn, $query_jlh_karyawan);

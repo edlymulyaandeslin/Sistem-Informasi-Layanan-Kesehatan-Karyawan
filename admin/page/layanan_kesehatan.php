@@ -1,10 +1,26 @@
+<?php
+session_start();
+include '../../koneksi.php';
+
+// Cek apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+  header("Location: ../../auth/page/login.php");
+  exit();
+}
+
+$query = "SELECT users.nama, lk.id, lk.jenis_layanan, lk.deskripsi, lk.status, lk.created_at FROM layanan_kesehatan AS lk INNER JOIN users ON lk.user_id = users.id";
+$result = mysqli_query($conn, $query);
+$layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Dashboard Admin</title>
+ <title>Layanan Kesehatan</title>
 
  <link rel="stylesheet" href="styles.css">
 </head>
@@ -24,28 +40,60 @@
  <!-- MAIN CONTENT -->
  <div class="main">
   <div class="header">
-   Layanan Kesehatan
-   <a href="../../auth/proses_logout.php" class="logout-btn">Logout</a>
+   <h2>Layanan Kesehatan</h2>
+   <div>
+    <a href="../../auth/proses_logout.php" class="logout-btn">Logout</a>
+   </div>
   </div>
 
-  <div class="cards">
-   <div class="card">
-    <h3>Karyawan</h3>
-    <p>358 terdaftar</p>
-   </div>
+  <!-- CONTENT WRAPPER -->
+  <div class="content">
 
    <div class="card">
-    <h3>Pengajuan</h3>
-    <p>32 pending</p>
-   </div>
+    <h3>Daftar Pengajuan</h3>
 
-   <div class="card">
-    <h3>Laporan</h3>
-    <p>Tersedia bulan ini</p>
+    <table class="data-table">
+     <thead>
+      <tr>
+       <th>No</th>
+       <th>Nama Karyawan</th>
+       <th>Jenis Layanan</th>
+       <th>Keterangan</th>
+       <th>Status</th>
+       <th>Tanggal Pengajuan</th>
+       <th>Aksi</th>
+      </tr>
+     </thead>
+
+     <tbody>
+      <?php foreach ($layanan as $index => $item) { ?>
+      <tr :key="$index">
+       <td><?= $index + 1 ?></td>
+       <td><?= $item['nama'] ?></td>
+       <td><?= $item['jenis_layanan'] ?></td>
+       <td><?= $item['deskripsi'] ?></td>
+       <td>
+        <span class="status 
+    <?= $item['status'] == 'diajukan' ? 'status-pending' : ($item['status'] == 'disetujui' ? 'status-approved' : 'status-rejected') ?>
+  ">
+         <?= $item['status'] ?>
+        </span>
+       </td>
+
+       <td><?= date('Y-m-d', strtotime($item['created_at'])) ?></td>
+       <td>
+        <a href="edit_pengajuan.php?id=<?= $item['id'] ?>" class="btn-small">Edit</a>
+       </td>
+      </tr>
+      <?php } ?>
+
+     </tbody>
+
+    </table>
    </div>
   </div>
  </div>
-
+ </div>
 </body>
 
 </html>

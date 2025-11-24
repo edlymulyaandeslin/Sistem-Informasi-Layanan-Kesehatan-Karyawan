@@ -1,5 +1,22 @@
 <?php
+session_start();
+
 include 'koneksi.php';
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $query = "SELECT * FROM users WHERE id = $user_id";
+    $result = mysqli_query($conn, $query);
+    $user = mysqli_fetch_assoc($result);
+
+    $route_name = '';
+    if ($user['role'] == 'admin') {
+        $route_name = '/admin/page/dashboard.php';
+    } else {
+        $route_name = '/karyawan/page/dashboard.php';
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,12 +26,9 @@ include 'koneksi.php';
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Sistem Informasi Layanan Kesehatan Karyawan</title>
  <link rel="stylesheet" href="index.css">
-
-
 </head>
 
 <body>
-
  <!-- NAVBAR -->
  <nav>
   <div class="logo">SILKK</div>
@@ -27,7 +41,11 @@ include 'koneksi.php';
   </ul>
 
   <!-- TOMBOL LOGIN -->
+  <?php if (isset($_SESSION['user_id'])) { ?>
+  <a href="<?= $route_name ?>" class="login-btn">Dashboard</a>
+  <?php } else { ?>
   <a href="/auth/page/login.php" class="login-btn">Login</a>
+  <?php } ?>
  </nav>
 
  <!-- HERO -->

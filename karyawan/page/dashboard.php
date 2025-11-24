@@ -2,6 +2,12 @@
 session_start();
 include '../../koneksi.php';
 
+// Cek apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../auth/page/login.php");
+    exit();
+}
+
 $query_jlh_pengajuan = "
     SELECT COUNT(*) AS total_pengajuan 
     FROM layanan_kesehatan 
