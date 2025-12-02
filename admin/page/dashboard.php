@@ -38,6 +38,8 @@ $total_pengajuan = mysqli_fetch_assoc($result);
   <ul class="menu">
    <li class="active">Dashboard</li>
    <li onclick="location.href='layanan_kesehatan.php'">Layanan Kesehatan</li>
+   <li onclick="location.href='karyawan.php'">Data Karyawan</li>
+   <li onclick="location.href='users.php'">Users</li>
   </ul>
  </div>
 

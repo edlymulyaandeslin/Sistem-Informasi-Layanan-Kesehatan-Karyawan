@@ -36,6 +36,8 @@ $layanan = mysqli_fetch_assoc($result);
   <ul class="menu">
    <li onclick="location.href='dashboard.php'">Dashboard</li>
    <li class="active">Layanan Kesehatan</li>
+   <li onclick="location.href='karyawan.php'">Data Karyawan</li>
+   <li onclick="location.href='users.php'">Users</li>
   </ul>
  </div>
 
@@ -55,7 +57,6 @@ $layanan = mysqli_fetch_assoc($result);
      <label for="jenis_layanan">Jenis Layanan</label>
      <select id="jenis_layanan" name="jenis_layanan" required class="input-control">
       <option value="" disabled <?= empty($layanan['jenis_layanan']) ? 'selected' : '' ?>>— Pilih Layanan —</option>
-
       <option value="Rawat Jalan" <?= ($layanan['jenis_layanan'] == 'Rawat Jalan') ? 'selected' : '' ?>>Rawat Jalan
       </option>
       <option value="Rawat Inap" <?= ($layanan['jenis_layanan'] == 'Rawat Inap') ? 'selected' : '' ?>>Rawat Inap

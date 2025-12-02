@@ -8,9 +8,9 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
-$query = "SELECT k.nama_karyawan, lk.id, lk.jenis_layanan, lk.deskripsi, lk.status, lk.created_at FROM layanan_kesehatan AS lk INNER JOIN karyawan as k ON lk.karyawan_id = k.id";
+$query = "SELECT * FROM users";
 $result = mysqli_query($conn, $query);
-$layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 ?>
 
@@ -20,7 +20,7 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Layanan Kesehatan</title>
+ <title>Data Users</title>
 
  <link rel="stylesheet" href="styles.css">
 </head>
@@ -29,68 +29,54 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
  <!-- SIDEBAR -->
  <div class="sidebar">
-  <div class="brand">Admin Panel</div>
+  <div class="brand">Karyawan Panel</div>
 
   <ul class="menu">
    <li onclick="location.href='dashboard.php'">Dashboard</li>
-   <li class="active">Layanan Kesehatan</li>
+   <li onclick="location.href='layanan_kesehatan.php'">Layanan Kesehatan</li>
    <li onclick="location.href='karyawan.php'">Data Karyawan</li>
-   <li onclick="location.href='users.php'">Users</li>
+   <li class="active">Users</li>
   </ul>
  </div>
 
  <!-- MAIN CONTENT -->
  <div class="main">
   <div class="header">
-   <h2>Layanan Kesehatan</h2>
+   <h2>Data Users</h2>
    <div>
+    <a href="tambah_users.php" class="btn-primary">+ Tambah User</a>
     <a href="../../auth/proses_logout.php" class="logout-btn">Logout</a>
    </div>
   </div>
 
   <!-- CONTENT WRAPPER -->
   <div class="content">
-
    <div class="card">
-    <h3>Daftar Pengajuan</h3>
-
     <table class="data-table">
      <thead>
       <tr>
        <th>No</th>
-       <th>Nama Karyawan</th>
-       <th>Jenis Layanan</th>
-       <th>Keterangan</th>
-       <th>Status</th>
-       <th>Tanggal Pengajuan</th>
+       <th>Nama</th>
+       <th>Email</th>
+       <th>Role</th>
        <th>Aksi</th>
       </tr>
      </thead>
 
      <tbody>
-      <?php foreach ($layanan as $index => $item) { ?>
+      <?php foreach ($users as $index => $user) { ?>
       <tr :key="$index">
        <td><?= $index + 1 ?></td>
-       <td><?= $item['nama'] ?></td>
-       <td><?= $item['jenis_layanan'] ?></td>
-       <td><?= $item['deskripsi'] ?></td>
+       <td><?= $user['nama'] ?></td>
+       <td><?= $user['email'] ?></td>
+       <td><?= $user['role'] ?></td>
        <td>
-        <span class="status 
-    <?= $item['status'] == 'diajukan' ? 'status-pending' : ($item['status'] == 'disetujui' ? 'status-approved' : 'status-rejected') ?>
-  ">
-         <?= $item['status'] ?>
-        </span>
-       </td>
-
-       <td><?= date('Y-m-d', strtotime($item['created_at'])) ?></td>
-       <td>
-        <a href="edit_pengajuan.php?id=<?= $item['id'] ?>" class="btn-small">Edit</a>
+        <a href="edit_users.php?id=<?= $user['id'] ?>" class="btn-small">Edit</a>
+        <a href="proses_hapus_users.php?id=<?= $user['id'] ?>" class="btn-small">Delete</a>
        </td>
       </tr>
       <?php } ?>
-
      </tbody>
-
     </table>
    </div>
   </div>
