@@ -54,19 +54,36 @@ $layanan = mysqli_fetch_assoc($result);
 
    <form action="proses_update_pengajuan.php?id=<?= $layanan['id'] ?>" method="POST" class="full-form">
     <div class="input-group">
+     <label for="tanggal_berobat">Tanggal Berobat</label>
+     <input id="tanggal_berobat" type="date" name="tanggal_berobat" class="input-control" required
+      value="<?= $layanan['tanggal_berobat'] ?>" />
+    </div>
+
+    <div class="input-group">
+     <label for="umur">Umur</label>
+     <input id="umur" type="number" name="umur" class="input-control" placeholder="Umur..." required
+      value="<?= $layanan['umur'] ?>" />
+    </div>
+
+    <div class="input-group">
+     <label for="alamat">Alamat</label>
+     <textarea id="alamat" name="alamat" rows="4" class="input-control" placeholder="Alamat..."
+      required><?= $layanan['alamat'] ?></textarea>
+    </div>
+
+    <div class="input-group">
      <label for="jenis_layanan">Jenis Layanan</label>
      <select id="jenis_layanan" name="jenis_layanan" required class="input-control">
       <option value="" disabled <?= empty($layanan['jenis_layanan']) ? 'selected' : '' ?>>— Pilih Layanan —</option>
-      <option value="Rawat Jalan" <?= ($layanan['jenis_layanan'] == 'Rawat Jalan') ? 'selected' : '' ?>>Rawat Jalan
-      </option>
-      <option value="Rawat Inap" <?= ($layanan['jenis_layanan'] == 'Rawat Inap') ? 'selected' : '' ?>>Rawat Inap
-      </option>
-      <option value="Persalinan" <?= ($layanan['jenis_layanan'] == 'Persalinan') ? 'selected' : '' ?>>Persalinan
-      </option>
-      <option value="Kacamata" <?= ($layanan['jenis_layanan'] == 'Kacamata') ? 'selected' : '' ?>>Kacamata</option>
-      <option value="MCU" <?= ($layanan['jenis_layanan'] == 'MCU') ? 'selected' : '' ?>>MCU</option>
-      <option value="Klaim Obat" <?= ($layanan['jenis_layanan'] == 'Klaim Obat') ? 'selected' : '' ?>>Klaim Obat
-      </option>
+      <option value="general check-up" <?= ($layanan['jenis_layanan'] == 'general check-up') ? 'selected' : '' ?>>
+       Pemeriksaan Dasar / General Check-Up</option>
+      <option value="pemeriksaan gigi" <?= ($layanan['jenis_layanan'] == 'pemeriksaan gigi') ? 'selected' : '' ?>>
+       Pemeriksaan Gigi</option>
+      <option value="pemeriksaan tht" <?= ($layanan['jenis_layanan'] == 'pemeriksaan tht') ? 'selected' : '' ?>>
+       Pemeriksaan THT</option>
+      <option value="pemeriksaan kesehatan kerja"
+       <?= ($layanan['jenis_layanan'] == 'pemeriksaan kesehatan kerja') ? 'selected' : '' ?>>Pemeriksaan Kesehatan Kerja
+       (MCU)</option>
      </select>
     </div>
 

@@ -8,10 +8,13 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
-$query = "SELECT * FROM layanan_kesehatan WHERE user_id = '$_SESSION[user_id]'";
+$query = "SELECT * from karyawan WHERE user_id = '{$_SESSION['user_id']}'";
+$result = mysqli_query($conn, $query);
+$karyawan = mysqli_fetch_assoc($result);
+
+$query = "SELECT * FROM layanan_kesehatan WHERE karyawan_id = '{$karyawan['id']}'";
 $result = mysqli_query($conn, $query);
 $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -57,10 +60,13 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
      <thead>
       <tr>
        <th>No</th>
+       <th>No Layanan</th>
+       <th>Tanggal Berobat</th>
+       <th>Umur</th>
+       <th>Alamat</th>
        <th>Jenis Layanan</th>
        <th>Keterangan</th>
        <th>Status</th>
-       <th>Tanggal Pengajuan</th>
        <th>Aksi</th>
       </tr>
      </thead>
@@ -69,6 +75,10 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <?php foreach ($layanan as $index => $item) { ?>
       <tr :key="$index">
        <td><?= $index + 1 ?></td>
+       <td><?= $item['no_layanan'] ?></td>
+       <td><?= $item['tanggal_berobat'] ?></td>
+       <td><?= $item['umur'] ?></td>
+       <td><?= $item['alamat'] ?></td>
        <td><?= $item['jenis_layanan'] ?></td>
        <td><?= $item['deskripsi'] ?></td>
        <td>
@@ -79,7 +89,6 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </span>
        </td>
 
-       <td><?= date('Y-m-d', strtotime($item['created_at'])) ?></td>
        <td>
         <a href="proses_hapus_pengajuan.php?id=<?= $item['id'] ?>" class="btn-small">Delete</a>
        </td>

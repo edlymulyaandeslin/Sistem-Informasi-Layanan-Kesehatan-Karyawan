@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
-$query = "SELECT k.nama_karyawan, lk.id, lk.jenis_layanan, lk.deskripsi, lk.status, lk.created_at FROM layanan_kesehatan AS lk INNER JOIN karyawan as k ON lk.karyawan_id = k.id";
+$query = "SELECT k.nama_karyawan, lk.id, lk.no_layanan, lk.tanggal_berobat, lk.umur, lk.alamat, lk.jenis_layanan, lk.deskripsi, lk.status, lk.created_at FROM layanan_kesehatan AS lk INNER JOIN karyawan as k ON lk.karyawan_id = k.id";
 $result = mysqli_query($conn, $query);
 $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -58,11 +58,14 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
      <thead>
       <tr>
        <th>No</th>
+       <th>No Layanan</th>
        <th>Nama Karyawan</th>
+       <th>Tanggal Berobat</th>
+       <th>Umur</th>
+       <th>Alamat</th>
        <th>Jenis Layanan</th>
        <th>Keterangan</th>
        <th>Status</th>
-       <th>Tanggal Pengajuan</th>
        <th>Aksi</th>
       </tr>
      </thead>
@@ -71,7 +74,11 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <?php foreach ($layanan as $index => $item) { ?>
       <tr :key="$index">
        <td><?= $index + 1 ?></td>
-       <td><?= $item['nama'] ?></td>
+       <td><?= $item['no_layanan'] ?></td>
+       <td><?= $item['nama_karyawan'] ?></td>
+       <td><?= $item['tanggal_berobat'] ?></td>
+       <td><?= $item['umur'] ?></td>
+       <td><?= $item['alamat'] ?></td>
        <td><?= $item['jenis_layanan'] ?></td>
        <td><?= $item['deskripsi'] ?></td>
        <td>
@@ -82,15 +89,12 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </span>
        </td>
 
-       <td><?= date('Y-m-d', strtotime($item['created_at'])) ?></td>
        <td>
         <a href="edit_pengajuan.php?id=<?= $item['id'] ?>" class="btn-small">Edit</a>
        </td>
       </tr>
       <?php } ?>
-
      </tbody>
-
     </table>
    </div>
   </div>

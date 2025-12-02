@@ -35,9 +35,9 @@
 
    <button type="submit" class="login-btn">Login</button>
 
-   <div class="footer-text">
+   <!-- <div class="footer-text">
     Belum punya akun? <a href="register.php">Daftar disini</a>
-   </div>
+   </div> -->
   </form>
 
  </div>

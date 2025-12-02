@@ -8,11 +8,14 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$query = "SELECT * from karyawan WHERE user_id = '{$_SESSION['user_id']}'";
+$result = mysqli_query($conn, $query);
+$karyawan = mysqli_fetch_assoc($result);
+
 $query_jlh_pengajuan = "
     SELECT COUNT(*) AS total_pengajuan 
     FROM layanan_kesehatan 
-    WHERE status = 'diajukan' 
-    AND user_id = '{$_SESSION['user_id']}'";
+    WHERE karyawan_id = '{$karyawan['id']}'";
 
 $result = mysqli_query($conn, $query_jlh_pengajuan);
 $total_pengajuan = mysqli_fetch_assoc($result);
@@ -48,14 +51,10 @@ $total_pengajuan = mysqli_fetch_assoc($result);
    Dashboard
    <a href="../../auth/proses_logout.php" class="logout-btn">Logout</a>
   </div>
-
-
   <div class="cards">
-
-
    <div class="card">
     <h3>Pengajuan</h3>
-    <p><?= $total_pengajuan['total_pengajuan'] ?> pending</p>
+    <p><?= $total_pengajuan['total_pengajuan'] ?></p>
    </div>
   </div>
  </div>
