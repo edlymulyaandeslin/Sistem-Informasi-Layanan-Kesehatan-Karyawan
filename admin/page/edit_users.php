@@ -78,7 +78,6 @@ $user = mysqli_fetch_assoc($result);
      <button type="submit" class="btn-primary">Kirim</button>
      <a href="users.php" class="btn-cancel">Batal</a>
     </div>
-
    </form>
   </div>
  </div>
