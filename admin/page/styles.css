@@ -268,3 +268,49 @@ body {
   background: #a8b0b4;
   transform: translateY(-2px);
 }
+
+.filter-form {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.filter-form label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.filter-form input[type='date'] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+  transition: 0.2s;
+}
+
+.filter-form input[type='date']:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+.filter-form button {
+  padding: 8px 16px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-form button:hover {
+  background: #0056b3;
+}

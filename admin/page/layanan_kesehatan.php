@@ -48,12 +48,20 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
    </div>
   </div>
 
+  <form action="cetak_laporan.php" method="GET" class="filter-form">
+   <label>Dari Tanggal:</label>
+   <input type="date" name="start" required>
+
+   <label>Sampai Tanggal:</label>
+   <input type="date" name="end" required>
+
+   <button type="submit" class="btn-small">Cetak Laporan</button>
+  </form>
+
   <!-- CONTENT WRAPPER -->
   <div class="content">
-
    <div class="card">
     <h3>Daftar Pengajuan</h3>
-
     <table class="data-table">
      <thead>
       <tr>

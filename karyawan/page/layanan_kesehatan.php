@@ -88,8 +88,11 @@ $layanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
          <?= $item['status'] ?>
         </span>
        </td>
-
        <td>
+        <?php if ($item['status'] == 'disetujui') { ?>
+        <a href="cetak.php?id=<?= $item['id'] ?>" class="btn-small">Cetak</a>
+        <?php } ?>
+
         <a href="proses_hapus_pengajuan.php?id=<?= $item['id'] ?>" class="btn-small">Delete</a>
        </td>
       </tr>
