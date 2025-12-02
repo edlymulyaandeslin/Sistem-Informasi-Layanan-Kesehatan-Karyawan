@@ -29,7 +29,7 @@ $karyawan = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
  <!-- SIDEBAR -->
  <div class="sidebar">
-  <div class="brand">Karyawan Panel</div>
+  <div class="brand">Admin Panel</div>
 
   <ul class="menu">
    <li onclick="location.href='dashboard.php'">Dashboard</li>
